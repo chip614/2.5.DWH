@@ -3,8 +3,9 @@
 
 1. Для упрощения задачи было создано материализованное представления, собирающее в себя данные о продажах.
    Структура материализованного представления aggr_sales: date (MM.YYYY), shop_name, product_id, sales_fact
-   
+ 
 WITH aggr_sales AS (
+
          SELECT shop_dns.product_id,
             'dns'::text AS shop_name,
             shop_dns.sales_cnt,
@@ -23,12 +24,17 @@ WITH aggr_sales AS (
             shop_sitilink.date
            FROM shop_sitilink
         )
+
  SELECT to_char(aggr_sales.date::timestamp with time zone, 'MM.YYYY'::text) AS date_mmyyyy,
     aggr_sales.shop_name,
     aggr_sales.product_id,
     sum(aggr_sales.sales_cnt) AS sales_fact
    FROM aggr_sales
-  GROUP BY aggr_sales.product_id, aggr_sales.shop_name, (to_char(aggr_sales.date::timestamp with time zone, 'MM.YYYY'::text))
+  GROUP BY aggr_sales.product_id, aggr_sales.shop_name, (to_char(aggr_sales.date::timestamp with time zone, 'MM.YYYY'::text)
+
+)
+
+
 
  2. Запрос для построения витрины:
 
@@ -36,13 +42,13 @@ WITH aggr_sales AS (
 
 	SELECT pl.shop_name,
  
-		pl.product_id, 
-
+		pl.product_id,
 		pr.product_name, 
 		pl.plan_cnt as sales_plan, 
 		to_char(pl.plan_date, 'MM.YYYY') as plan_date,  
 		pr.price
 	FROM plan pl LEFT OUTER JOIN products pr ON pl.product_id=pr.product_id)
+
 SELECT pl_pr.plan_date, 
 	pl_pr.shop_name, 
 	pl_pr.product_name, 
