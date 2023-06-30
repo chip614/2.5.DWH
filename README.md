@@ -31,9 +31,13 @@ WITH aggr_sales AS (
   GROUP BY aggr_sales.product_id, aggr_sales.shop_name, (to_char(aggr_sales.date::timestamp with time zone, 'MM.YYYY'::text))
 
  2. Запрос для построения витрины:
+
     WITH pl_pr AS (
-	SELECT pl.shop_name, 
+
+	SELECT pl.shop_name,
+ 
 		pl.product_id, 
+
 		pr.product_name, 
 		pl.plan_cnt as sales_plan, 
 		to_char(pl.plan_date, 'MM.YYYY') as plan_date,  
