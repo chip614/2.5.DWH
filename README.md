@@ -3,7 +3,8 @@
 
 1. Для упрощения задачи было создано материализованное представления, собирающее в себя данные о продажах.
    Структура материализованного представления aggr_sales: date (MM.YYYY), shop_name, product_id, sales_fact
-   WITH aggr_sales AS (
+   
+WITH aggr_sales AS (
          SELECT shop_dns.product_id,
             'dns'::text AS shop_name,
             shop_dns.sales_cnt,
